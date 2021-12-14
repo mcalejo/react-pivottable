@@ -206,6 +206,8 @@ function makeRenderer(opts = {}) {
                     if (x === -1) {
                       return null;
                     }
+                    const theURL = myProps.url(rowAttrs[j],txt);
+                    const navigateToURL = function() {window.open(theURL)};
                     return (
                       <th
                         key={`rowKeyLabel${i}-${j}`}
@@ -216,7 +218,8 @@ function makeRenderer(opts = {}) {
                             ? 2
                             : 1
                         }
-                        style={myProps.indenter ? {'padding-left':myProps.indenter(rowAttrs[j],txt)+"px"}:""}
+                        onClick={theURL ? navigateToURL : null}
+                        style={myProps.indenter ? {'paddingLeft':myProps.indenter(rowAttrs[j],txt)+"px"}:""}
                         title={myProps.tooltip ? myProps.tooltip(rowAttrs[j],txt) : ""}
                       >
                         {myProps.labeller? myProps.labeller(rowAttrs[j],txt) : txt}
@@ -238,8 +241,11 @@ function makeRenderer(opts = {}) {
                           colKey,
                           aggregator.value()
                         )}
+                        dangerouslySetInnerHTML={aggregator.formatHTML ? { __html: aggregator.formatHTML(aggregator.format(aggregator.value())) } : null}
+                        title={aggregator.tip ? aggregator.tip() : null}
+                        fid={aggregator.getFID? aggregator.getFID() : null}
                       >
-                        {aggregator.format(aggregator.value())}
+                        {aggregator.formatHTML ? null : aggregator.format(aggregator.value())}
                       </td>
                     );
                   })}

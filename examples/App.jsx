@@ -46,9 +46,9 @@ export default class App extends React.Component {
                 data: tips,
                 rows: ['Payer Gender'],
                 cols: ['Party Size'],
-                aggregatorName: 'Sum over Sum',
+                aggregatorName: 'myAggregator',
                 vals: ['Tip', 'Total Bill'],
-                rendererName: 'Grouped Column Chart',
+                rendererName: 'Table',
                 sorters: {
                     Meal: sortAs(['Lunch', 'Dinner']),
                     'Day of Week': sortAs([
@@ -71,9 +71,42 @@ export default class App extends React.Component {
                         alert(names.join('\n'));
                     },
                 },
+                url : (dim,attr) => {return `https://www.google.com/search?q=${dim}+${attr}`},
                 tooltip: (dim,attr) => {return dim+ " : " + attr},
                 labeller: (dim,attr) => {return dim+"-"+attr+":-)"},
-                indenter: (dim,attr) => {return 20} // return null for no incenting
+                indenter: (dim,attr) => {return 20}, // return null for no incenting
+                hiddenFromDragDrop: ["Tip"], // assuming this to be our main "value"
+                aggregators :{
+                    "myAggregator" : function(attributeArray){
+                        // attributeArray[0] is the attribute being aggregated; we don't care here
+                        return function(data, rowKey, colKey){
+                            var self = {
+                                // cf. https://github.com/nicolaskruchten/pivottable/wiki/Aggregators
+                                theValue: null,
+                                theSum:0,
+                                theMeta:null,
+                                theInfo:null, 
+                                push: function(record){
+                                    self.theInfo=record; 
+                                    self.theValue=record['Tip']; // assuming this to be our "value"
+                                    self.theMeta=record.meta;
+                                    if(!isNaN(record.value)) self.theSum+=record.value;
+                                    },
+                                value: function(){ return self.theValue; },
+                                format: function(x) { return x; },
+                                formatHTML: function(x) { 
+                                    return "<i>"+x+"</i>";
+                                },
+                                tip: function() {
+                                    return "tip for "+self.theValue;
+                                    },
+                                getFID: function() {return "someFID_"+self.theValue;},
+                                numInputs: 0
+                            };
+                            return self;
+                        }
+                    }
+                }
             },
         });
     }
