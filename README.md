@@ -1,4 +1,4 @@
-# react-pivottable
+# react-pivottable (tweaked)
 
 `react-pivottable` is a React-based pivot table library with drag'n'drop
 functionality. It is a React port of the jQuery-based
