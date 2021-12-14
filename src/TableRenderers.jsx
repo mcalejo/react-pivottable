@@ -61,6 +61,7 @@ function makeRenderer(opts = {}) {
       const rowKeys = pivotData.getRowKeys();
       const colKeys = pivotData.getColKeys();
       const grandTotalAggregator = pivotData.getAggregator([], []);
+      const myProps = this.props;
 
       let valueCellColors = () => {};
       let rowTotalColors = () => {};
@@ -147,6 +148,7 @@ function makeRenderer(opts = {}) {
                     if (x === -1) {
                       return null;
                     }
+
                     return (
                       <th
                         className="pvtColLabel"
@@ -157,8 +159,9 @@ function makeRenderer(opts = {}) {
                             ? 2
                             : 1
                         }
+                        title={myProps.tooltip ? myProps.tooltip(c,colKey[j]) : ""}
                       >
-                        {colKey[j]}
+                        {myProps.labeller? myProps.labeller(c,colKey[j]) : colKey[j]}
                       </th>
                     );
                   })}
@@ -213,8 +216,10 @@ function makeRenderer(opts = {}) {
                             ? 2
                             : 1
                         }
+                        style={myProps.indenter ? {'padding-left':myProps.indenter(rowAttrs[j],txt)+"px"}:""}
+                        title={myProps.tooltip ? myProps.tooltip(rowAttrs[j],txt) : ""}
                       >
-                        {txt}
+                        {myProps.labeller? myProps.labeller(rowAttrs[j],txt) : txt}
                       </th>
                     );
                   })}

@@ -71,6 +71,9 @@ export default class App extends React.Component {
                         alert(names.join('\n'));
                     },
                 },
+                tooltip: (dim,attr) => {return dim+ " : " + attr},
+                labeller: (dim,attr) => {return dim+"-"+attr+":-)"},
+                indenter: (dim,attr) => {return 20} // return null for no incenting
             },
         });
     }
