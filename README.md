@@ -1,5 +1,7 @@
 # react-pivottable (tweaked)
 
+*Tweaks: indenter, labeller and tooltip functions; see examples/App.jsx for example*
+
 `react-pivottable` is a React-based pivot table library with drag'n'drop
 functionality. It is a React port of the jQuery-based
 [PivotTable.js](https://pivottable.js.org/) by the same author.
