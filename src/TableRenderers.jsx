@@ -206,7 +206,7 @@ function makeRenderer(opts = {}) {
                     if (x === -1) {
                       return null;
                     }
-                    const theURL = myProps.url(rowAttrs[j],txt);
+                    const theURL = myProps.url//(rowAttrs[j],txt);
                     const navigateToURL = function() {window.open(theURL)};
                     return (
                       <th
@@ -219,7 +219,7 @@ function makeRenderer(opts = {}) {
                             : 1
                         }
                         onClick={theURL ? navigateToURL : null}
-                        style={myProps.indenter ? {'paddingLeft':myProps.indenter(rowAttrs[j],txt)+"px"}:""}
+                        style={myProps.indenter ? {'paddingLeft':myProps.indenter(rowAttrs[j],txt)+"px"}:{'paddingLeft':0+"px"}}
                         title={myProps.tooltip ? myProps.tooltip(rowAttrs[j],txt) : ""}
                       >
                         {myProps.labeller? myProps.labeller(rowAttrs[j],txt) : txt}
