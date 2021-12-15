@@ -206,7 +206,7 @@ function makeRenderer(opts = {}) {
                     if (x === -1) {
                       return null;
                     }
-                    const theURL = myProps.url//(rowAttrs[j],txt);
+                    const theURL = myProps.url ? myProps.url(rowAttrs[j],txt) : '';
                     const navigateToURL = function() {window.open(theURL)};
                     return (
                       <th
