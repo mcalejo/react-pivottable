@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {PivotData} from './Utilities';
+import TableCellWithPopover from './TableCellWithPopover';
 
 // helper function for setting row/col-span in pivotTableRenderer
 const spanSize = function(arr, i, j) {
@@ -228,6 +229,11 @@ function makeRenderer(opts = {}) {
                   })}
                   {colKeys.map(function(colKey, j) {
                     const aggregator = pivotData.getAggregator(rowKey, colKey);
+                    var content = ''
+                    if (aggregator.formatHTML) { 
+                      content = aggregator.formatHTML(aggregator.format(aggregator.value()))
+                    }
+
                     return (
                       <td
                         className="pvtVal"
@@ -241,11 +247,9 @@ function makeRenderer(opts = {}) {
                           colKey,
                           aggregator.value()
                         )}
-                        dangerouslySetInnerHTML={aggregator.formatHTML ? { __html: aggregator.formatHTML(aggregator.format(aggregator.value())) } : null}
                         title={aggregator.tip ? aggregator.tip() : null}
                         fid={aggregator.getFID? aggregator.getFID() : null}
-                      >
-                        {aggregator.formatHTML ? null : aggregator.format(aggregator.value())}
+                      ><TableCellWithPopover value={aggregator.format(aggregator.value())} content={content} />
                       </td>
                     );
                   })}
