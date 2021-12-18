@@ -229,10 +229,15 @@ function makeRenderer(opts = {}) {
                   })}
                   {colKeys.map(function(colKey, j) {
                     const aggregator = pivotData.getAggregator(rowKey, colKey);
-                    var content = ''
-                    if (aggregator.formatHTML) { 
-                      content = aggregator.formatHTML(aggregator.format(aggregator.value()))
+                    var content = {}
+                    // if (aggregator.formatHTML) { 
+                    //   content = aggregator.formatHTML(aggregator.format(aggregator.value()))
+                    // }
+                    if (aggregator.theInfo) { 
+                      content = aggregator.theInfo
                     }
+
+                    console.log('tablerenderer', content)
 
                     return (
                       <td
