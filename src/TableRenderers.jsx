@@ -167,7 +167,7 @@ function makeRenderer(opts = {}) {
                     );
                   })}
 
-                  {j === 0 && (
+                  {j === 0 && myProps.rowTotalsEnabled && (
                     <th
                       className="pvtTotalLabel"
                       rowSpan={
@@ -190,9 +190,10 @@ function makeRenderer(opts = {}) {
                     </th>
                   );
                 })}
-                <th className="pvtTotalLabel">
+                {myProps.rowTotalsEnabled && <th className="pvtTotalLabel">
                   {colAttrs.length === 0 ? 'Totals' : null}
                 </th>
+                }
               </tr>
             )}
           </thead>
@@ -258,7 +259,7 @@ function makeRenderer(opts = {}) {
                       </td>
                     );
                   })}
-                  <td
+                  {myProps.rowTotalsEnabled && <td
                     className="pvtTotal"
                     onClick={
                       getClickHandler &&
@@ -268,11 +269,12 @@ function makeRenderer(opts = {}) {
                   >
                     {totalAggregator.format(totalAggregator.value())}
                   </td>
+                  }
                 </tr>
               );
             })}
 
-            <tr>
+            {myProps.colTotalsEnabled && <tr>
               <th
                 className="pvtTotalLabel"
                 colSpan={rowAttrs.length + (colAttrs.length === 0 ? 0 : 1)}
@@ -307,6 +309,7 @@ function makeRenderer(opts = {}) {
                 {grandTotalAggregator.format(grandTotalAggregator.value())}
               </td>
             </tr>
+            }
           </tbody>
         </table>
       );
