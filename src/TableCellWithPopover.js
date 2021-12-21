@@ -8,11 +8,11 @@ import DisplayObject from './DisplayObject'
 // from https://mui.com/styles/basics/
 const useStyles = makeStyles({
   root: {
-    background: 'white',
+    background: (props) => props.cellBackgroundColor, //'white',
     border: 0,
     borderRadius: 1,
     boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-    color: 'black',
+    color: (props) => props.cellColor, //'black',
     height: 24,
     padding: '0 3px',
   },
@@ -21,7 +21,7 @@ const useStyles = makeStyles({
 // based on https://mui.com/components/popover/
 
 const TableCellWithPopover = props => {
-  const classes = useStyles();
+  const classes = useStyles(props);
   const [anchorEl, setAnchorEl] = React.useState(null);  
   
   const handleClick = (event) => {

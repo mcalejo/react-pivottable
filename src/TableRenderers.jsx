@@ -255,7 +255,11 @@ function makeRenderer(opts = {}) {
                         )}
                         title={aggregator.tip ? aggregator.tip() : null}
                         fid={aggregator.getFID? aggregator.getFID() : null}
-                      ><TableCellWithPopover value={aggregator.format(aggregator.value())} content={content} />
+                      ><TableCellWithPopover 
+                          value={aggregator.format(aggregator.value())} 
+                          cellBackgroundColor='white' 
+                          cellColor={aggregator.theMeta.color}
+                          content={content} />
                       </td>
                     );
                   })}
