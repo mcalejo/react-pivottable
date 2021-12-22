@@ -1,61 +1,54 @@
-import React from 'react';
-import Popover from '@mui/material/Popover';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import { makeStyles } from '@mui/styles';
+import React, {useState} from 'react'
+import Popover from '@mui/material/Popover'
+import Typography from '@mui/material/Typography'
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import { makeStyles } from '@mui/styles'
 import DisplayObject from './DisplayObject'
 
-// from https://mui.com/styles/basics/
-const useStyles = makeStyles({
-  root: {
-    background: (props) => props.cellBackgroundColor, //'white',
-    border: 0,
-    borderRadius: 1,
-    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-    color: (props) => props.cellColor, //'black',
-    height: 24,
-    padding: '0 3px',
+export default function TableCellWithPopover(props) {
+  const { cellBGColor, cellColor, cellAlign, content, value }  = props;
+  const useStyles = makeStyles({
+    root: {
+    '& .MuiButton-root': {
+      backgroundColor: cellBGColor,
+      border: 0,
+      borderRadius: 1,
+      boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+      height: 24,
+      padding: '0 3px',
+      color: cellColor,
+      //alignItems: cellAlign,
+      justifyContent: cellAlign,
+      '&:hover': {
+          backgroundColor: 'lightblue',
+      },
+    },
   },
-});
+  });
 
-// based on https://mui.com/components/popover/
-
-const TableCellWithPopover = props => {
-  const classes = useStyles(props);
-  const [anchorEl, setAnchorEl] = React.useState(null);  
-  
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };  
-  
-  const handleClose = () => {
-    setAnchorEl(null);
-  };  
+  const classes = useStyles();
+  const [anchorEl, setAnchorEl] = useState(null);  
   const open = Boolean(anchorEl);
   
   const id = open ? 'simple-popover' : undefined; 
   
-  const elements = props.content
-  console.log("content", elements)
-
-  //const elements = props.content.map( el => 
-  //  <li>{el}</li>
-  //)
-
-  //  <Button aria-describedby={id} className={classes.root} variant="contained" onClick={handleClick}>
-  //{props.value}
-  //</Button>
+  const elements = content
+  //console.log("content", elements)
   
   return (
-    <div>
-      <Button className={classes.root} onClick={handleClick}>
-        {props.value}
+    <Box
+    className={classes.root}>
+      <Button aria-describedby={id}
+      className={classes.button}
+      onClick={e=>setAnchorEl(e.currentTarget)}
+      >{value}
       </Button>
       <Popover
         id={id}
         open={open}
         anchorEl={anchorEl}
-        onClose={handleClose}
+        onClose={e=>setAnchorEl(null)}
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'right',
@@ -63,12 +56,14 @@ const TableCellWithPopover = props => {
         transformOrigin={{
           vertical: 'center',
           horizontal: 'left',
-        }}
-      >
-        <Typography sx={{ p: 1 }}><DisplayObject content={elements}/></Typography>
+        }}>
+        <Typography
+        sx={{ p: 1 }}>
+          <DisplayObject
+        content={elements}/></Typography>
       </Popover>
-    </div>
+    </Box>
   );
 }
 
-export default TableCellWithPopover
+

@@ -234,11 +234,13 @@ function makeRenderer(opts = {}) {
                     // if (aggregator.formatHTML) { 
                     //   content = aggregator.formatHTML(aggregator.format(aggregator.value()))
                     // }
+                    var content = {}
                     if (aggregator.theInfo) { 
-                      content = aggregator.theInfo
+                      const {meta, key, parExplanations, conceptHREF,conceptTip, originHREF, rawUnit, ...contentR} = aggregator.theInfo
+                      content = contentR
                     }
 
-                    console.log('tablerenderer', content)
+                    //console.log('tablerenderer', content)
 
                     return (
                       <td
@@ -257,8 +259,9 @@ function makeRenderer(opts = {}) {
                         fid={aggregator.getFID? aggregator.getFID() : null}
                       ><TableCellWithPopover 
                           value={aggregator.format(aggregator.value())} 
-                          cellBackgroundColor='white' 
-                          cellColor={aggregator.theMeta.color}
+                          cellBGColor='white' 
+                          cellColor={aggregator.theMeta ? aggregator.theMeta.color: 'white'}
+                          cellAlign={aggregator.theMeta ? aggregator.theMeta.align: 'right'}
                           content={content} />
                       </td>
                     );
