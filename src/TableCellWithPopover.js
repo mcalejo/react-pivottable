@@ -3,7 +3,8 @@ import Popover from '@mui/material/Popover'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
-import { makeStyles } from '@mui/styles'
+//import { makeStyles } from '@mui/styles'
+import { makeStyles } from '@material-ui/core/styles'
 import DisplayObject from './DisplayObject'
 
 export default function TableCellWithPopover(props) {
