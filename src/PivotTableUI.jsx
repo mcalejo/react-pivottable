@@ -6,7 +6,6 @@ import PivotTable from './PivotTable';
 import Sortable from 'react-sortablejs';
 import Draggable from 'react-draggable';
 
-/* eslint-disable react/prop-types */
 // eslint can't see inherited propTypes!
 
 export class DraggableAttribute extends React.Component {
@@ -227,7 +226,7 @@ export class Dropdown extends React.PureComponent {
   }
 }
 
-class PivotTableUI extends React.PureComponent {
+export class PivotTableUI extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -342,32 +341,33 @@ class PivotTableUI extends React.PureComponent {
   makeDnDCell(items, onChange, classes) {
     return (
       <Sortable
-        options={{
-          group: 'shared',
-          ghostClass: 'pvtPlaceholder',
-          filter: '.pvtFilterBox',
-          preventOnFilter: false,
-        }}
-        tag="td"
-        className={classes}
-        onChange={onChange}
-      >
-        {items.map(x => (
-          <DraggableAttribute
-            name={x}
-            key={x}
-            attrValues={this.state.attrValues[x]}
-            valueFilter={this.props.valueFilter[x] || {}}
-            sorter={getSort(this.props.sorters, x)}
-            menuLimit={this.props.menuLimit}
-            setValuesInFilter={this.setValuesInFilter.bind(this)}
-            addValuesToFilter={this.addValuesToFilter.bind(this)}
-            moveFilterBoxToTop={this.moveFilterBoxToTop.bind(this)}
-            removeValuesFromFilter={this.removeValuesFromFilter.bind(this)}
-            zIndex={this.state.zIndices[x] || this.state.maxZIndex}
-          />
-        ))}
-      </Sortable>
+      options={{
+        group: 'shared',
+        ghostClass: 'pvtPlaceholder',
+        filter: '.pvtFilterBox',
+        preventOnFilter: false,
+      }}
+      tag="td"
+      className={classes}
+      onChange={onChange}
+    >
+      {items.map(x => (
+        <DraggableAttribute
+          name={x}
+          key={x}
+          attrValues={this.state.attrValues[x]}
+          valueFilter={this.props.valueFilter[x] || {}}
+          sorter={getSort(this.props.sorters, x)}
+          menuLimit={this.props.menuLimit}
+          setValuesInFilter={this.setValuesInFilter.bind(this)}
+          addValuesToFilter={this.addValuesToFilter.bind(this)}
+          moveFilterBoxToTop={this.moveFilterBoxToTop.bind(this)}
+          removeValuesFromFilter={this.removeValuesFromFilter.bind(this)}
+          zIndex={this.state.zIndices[x] || this.state.maxZIndex}
+        />
+      ))}
+    </Sortable>
+
     );
   }
 
@@ -534,16 +534,22 @@ class PivotTableUI extends React.PureComponent {
         <table className="pvtUi">
           <tbody onClick={() => this.setState({openDropdown: false})}>
             <tr>
-              {rendererCell}
-              {unusedAttrsCell}
+              {rendererCell
+              }
+              {unusedAttrsCell
+              }
             </tr>
             <tr>
-              {aggregatorCell}
-              {colAttrsCell}
+              {aggregatorCell
+              }
+              {colAttrsCell
+              }
             </tr>
             <tr>
-              {rowAttrsCell}
-              {outputCell}
+              {rowAttrsCell
+              }
+              {outputCell
+              }
             </tr>
           </tbody>
         </table>
@@ -551,6 +557,7 @@ class PivotTableUI extends React.PureComponent {
     }
 
     return (
+      <div>
       <table className="pvtUi">
         <tbody onClick={() => this.setState({openDropdown: false})}>
           <tr>
@@ -565,6 +572,7 @@ class PivotTableUI extends React.PureComponent {
           </tr>
         </tbody>
       </table>
+      </div>
     );
   }
 }
