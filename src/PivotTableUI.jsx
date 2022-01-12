@@ -4,7 +4,7 @@ import update from 'immutability-helper';
 import {PivotData, sortAs, getSort} from './Utilities';
 import PivotTable from './PivotTable';
 import Sortable from 'react-sortablejs';
-import Draggable from 'react-draggable';
+import Draggable from './react-draggable';
 
 // eslint can't see inherited propTypes!
 
