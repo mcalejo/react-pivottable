@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {PivotData} from './Utilities';
-import TableCellWithPopover from './TableCellWithPopover';
+import ReactHtmlParser from 'react-html-parser';
 
 // helper function for setting row/col-span in pivotTableRenderer
 const spanSize = function(arr, i, j) {
@@ -231,16 +231,14 @@ function makeRenderer(opts = {}) {
                   {colKeys.map(function(colKey, j) {
                     const aggregator = pivotData.getAggregator(rowKey, colKey);
                     var content = {}
-                    // if (aggregator.formatHTML) { 
-                    //   content = aggregator.formatHTML(aggregator.format(aggregator.value()))
-                    // }
-                    var content = {}
-                    if (aggregator.theInfo) { 
-                      const {meta, key, parExplanations, conceptHREF,conceptTip, originHREF, rawUnit, ...contentR} = aggregator.theInfo
-                      content = contentR
+                    if (aggregator.formatHTML) { 
+                       content = aggregator.formatHTML(aggregator.format(aggregator.value()))
                     }
-
-                    //console.log('tablerenderer', content)
+                    //var content = {}
+                    //if (aggregator.theInfo) { 
+                    //  const {meta, key, parExplanations, conceptHREF,conceptTip, originHREF, rawUnit, ...contentR} = aggregator.theInfo
+                    //  content = contentR
+                    //}
 
                     return (
                       <td
@@ -257,12 +255,7 @@ function makeRenderer(opts = {}) {
                         )}
                         title={aggregator.tip ? aggregator.tip() : null}
                         fid={aggregator.getFID? aggregator.getFID() : null}
-                      ><TableCellWithPopover 
-                          value={aggregator.format(aggregator.value())} 
-                          cellBGColor='white' 
-                          cellColor={aggregator.theMeta ? aggregator.theMeta.color: 'white'}
-                          cellAlign={aggregator.theMeta ? aggregator.theMeta.align: 'right'}
-                          content={content} />
+                      >{ReactHtmlParser(content)}
                       </td>
                     );
                   })}
