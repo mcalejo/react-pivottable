@@ -110,7 +110,7 @@ function makeRenderer(opts = {}) {
 
       const getClickHandler =
         this.props.tableOptions && this.props.tableOptions.clickCallback
-          ? (value, rowValues, colValues, popValue) => {
+          ? (value, rowValues, colValues) => {
               const filters = {};
               for (const i of Object.keys(colAttrs || {})) {
                 const attr = colAttrs[i];
@@ -129,8 +129,7 @@ function makeRenderer(opts = {}) {
                   e,
                   value,
                   filters,
-                  pivotData,
-                  popValue
+                  pivotData
                 );
             }
           : null;
