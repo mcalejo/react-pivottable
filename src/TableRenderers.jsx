@@ -110,7 +110,7 @@ function makeRenderer(opts = {}) {
 
       const getClickHandler =
         this.props.tableOptions && this.props.tableOptions.clickCallback
-          ? (value, rowValues, colValues) => {
+          ? (value, rowValues, colValues, popValue) => {
               const filters = {};
               for (const i of Object.keys(colAttrs || {})) {
                 const attr = colAttrs[i];
@@ -129,10 +129,14 @@ function makeRenderer(opts = {}) {
                   e,
                   value,
                   filters,
-                  pivotData
+                  pivotData,
+                  popValue
                 );
             }
           : null;
+
+      // to hold the content for poping over
+      var content = {}
 
       return (
         <table className="pvtTable">
@@ -230,15 +234,9 @@ function makeRenderer(opts = {}) {
                   })}
                   {colKeys.map(function(colKey, j) {
                     const aggregator = pivotData.getAggregator(rowKey, colKey);
-                    var content = {}
                     if (aggregator.formatHTML) { 
-                       content = aggregator.formatHTML(aggregator.format(aggregator.value()))
+                       content = ReactHtmlParser(aggregator.formatHTML(aggregator.format(aggregator.value())))
                     }
-                    //var content = {}
-                    //if (aggregator.theInfo) { 
-                    //  const {meta, key, parExplanations, conceptHREF,conceptTip, originHREF, rawUnit, ...contentR} = aggregator.theInfo
-                    //  content = contentR
-                    //}
 
                     return (
                       <td
@@ -246,7 +244,7 @@ function makeRenderer(opts = {}) {
                         key={`pvtVal${i}-${j}`}
                         onClick={
                           getClickHandler &&
-                          getClickHandler(aggregator.value(), rowKey, colKey)
+                          getClickHandler(aggregator.value(), rowKey, colKey, content)
                         }
                         style={valueCellColors(
                           rowKey,
@@ -255,7 +253,7 @@ function makeRenderer(opts = {}) {
                         )}
                         title={aggregator.tip ? aggregator.tip() : null}
                         fid={aggregator.getFID? aggregator.getFID() : null}
-                      >{ReactHtmlParser(content)}
+                      >{ReactHtmlParser(aggregator.format(aggregator.value()))}
                       </td>
                     );
                   })}
@@ -263,7 +261,7 @@ function makeRenderer(opts = {}) {
                     className="pvtTotal"
                     onClick={
                       getClickHandler &&
-                      getClickHandler(totalAggregator.value(), rowKey, [null])
+                      getClickHandler(totalAggregator.value(), rowKey, [null], content)
                     }
                     style={colTotalColors(totalAggregator.value())}
                   >
