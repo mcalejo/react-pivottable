@@ -233,17 +233,13 @@ function makeRenderer(opts = {}) {
                   })}
                   {colKeys.map(function(colKey, j) {
                     const aggregator = pivotData.getAggregator(rowKey, colKey);
-                    if (aggregator.formatHTML) { 
-                       content = ReactHtmlParser(aggregator.formatHTML(aggregator.format(aggregator.value())))
-                    }
-
                     return (
                       <td
                         className="pvtVal"
                         key={`pvtVal${i}-${j}`}
                         onClick={
                           getClickHandler &&
-                          getClickHandler(aggregator.value(), rowKey, colKey, content)
+                          getClickHandler(aggregator.value(), rowKey, colKey)
                         }
                         style={valueCellColors(
                           rowKey,
@@ -252,7 +248,7 @@ function makeRenderer(opts = {}) {
                         )}
                         title={aggregator.tip ? aggregator.tip() : null}
                         fid={aggregator.getFID? aggregator.getFID() : null}
-                      >{ReactHtmlParser(aggregator.format(aggregator.value()))}
+                      >{ReactHtmlParser(aggregator.formatHTML(aggregator.value()))}
                       </td>
                     );
                   })}
@@ -260,7 +256,7 @@ function makeRenderer(opts = {}) {
                     className="pvtTotal"
                     onClick={
                       getClickHandler &&
-                      getClickHandler(totalAggregator.value(), rowKey, [null], content)
+                      getClickHandler(totalAggregator.value(), rowKey, [null])
                     }
                     style={colTotalColors(totalAggregator.value())}
                   >
