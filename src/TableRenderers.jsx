@@ -233,6 +233,10 @@ function makeRenderer(opts = {}) {
                   })}
                   {colKeys.map(function(colKey, j) {
                     const aggregator = pivotData.getAggregator(rowKey, colKey);
+                    var content = ''
+                    if (aggregator.formatHTML) {
+                        content = aggregator.formatHTML(aggregator.value())
+                    }
                     return (
                       <td
                         className="pvtVal"
@@ -248,7 +252,7 @@ function makeRenderer(opts = {}) {
                         )}
                         title={aggregator.tip ? aggregator.tip() : null}
                         fid={aggregator.getFID? aggregator.getFID() : null}
-                      >{ReactHtmlParser(aggregator.formatHTML(aggregator.value()))}
+                      >{ReactHtmlParser(content)}
                       </td>
                     );
                   })}
