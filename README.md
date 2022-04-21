@@ -2,11 +2,11 @@
 
 *Tweaks: indenter, labeller, tooltip and url functions; formatHTML, getFID functions for aggregators; see examples/App.jsx for example*
 
-`react-pivottable` is a React-based pivot table library with drag'n'drop
-functionality. It is a React port of the jQuery-based
-[PivotTable.js](https://pivottable.js.org/) by the same author.
+`react-pivottable-calejo` is a React-based pivot table library with drag'n'drop
+functionality. It is based on the React port `react-pivottable` of the jQuery-based
+[PivotTable.js](https://pivottable.js.org/) by that same author.
 
-`react-pivottable` is part of Plotly's [React Component Suite](https://plot.ly/products/react/) for building data visualization Web apps and products.
+`react-pivottable-calejo` is part of Plotly's [React Component Suite](https://plot.ly/products/react/) for building data visualization Web apps and products.
 
 ## What does it do & where is the demo?
 
