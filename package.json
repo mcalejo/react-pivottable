@@ -1,5 +1,5 @@
 {
-  "name": "react-pivottable",
+  "name": "react-pivottable-calejo",
   "version": "0.11.0",
   "description": "A React-based pivot table",
   "main": "PivotTableUI.js",
@@ -74,5 +74,8 @@
     "react-hot-loader": "^3.1.1",
     "react-plotly.js": "^2.0.0",
     "style-loader": "^0.19.0"
+  },
+  "directories": {
+    "example": "examples"
   }
 }
