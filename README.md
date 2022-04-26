@@ -263,3 +263,16 @@ const data = function(callback) {
     //...
 };
 ```
+
+# Packaging and Publishing
+
+The details are kept in the `package.json` file. After cloning the repository, install the dependencies, build the js files (transpiling from jsx where necessary) and either publish or perform some costume module installation for the required App. For instance,
+
+```
+git clone https://github.com/mcalejo/react-pivottable
+cd react-pivottable/
+npm run doPublish
+```
+
+Add `"react-pivottable-calejo": "^0.11.2",` to the dependencies in the `package.json` of the importing App. 
+
